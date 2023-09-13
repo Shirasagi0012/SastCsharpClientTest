@@ -1,0 +1,17 @@
+﻿<Application
+    x:Class="SastCsharpClientTest.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:SastCsharpClientTest"
+    StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/ButtonDictionary.xaml" />
+                <ResourceDictionary Source="Themes/TextDictionary.xaml" />
+                <ResourceDictionary Source="Themes/OthersDictionary.xaml" />
+                <ResourceDictionary Source="Themes/MainDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
