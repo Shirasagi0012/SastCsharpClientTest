@@ -4,9 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    PreviewMouseLeftButtonDown="Window_MouseDown"
-    PreviewMouseLeftButtonUp="Window_MouseUp"
-    PreviewMouseMove="Window_MouseMove"
     Style="{StaticResource WindowStyle}"
     mc:Ignorable="d">
 
@@ -15,7 +12,10 @@
             <Grid
                 x:Name="Navbar"
                 DockPanel.Dock="Top"
-                Style="{StaticResource NavbarGrid}">
+                Style="{StaticResource NavbarGrid}"
+                PreviewMouseLeftButtonDown="Titlebar_MouseDown"
+                PreviewMouseLeftButtonUp="Titlebar_MouseUp"
+                PreviewMouseMove="Titlebar_MouseMove">
                 <TextBlock>Friend Management System</TextBlock>
                 <Button Click="ExitApp" />
             </Grid>

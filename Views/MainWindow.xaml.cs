@@ -59,12 +59,12 @@ namespace SastCsharpClientTest
             Application.Current.Shutdown();
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Titlebar_MouseDown(object sender, MouseButtonEventArgs e)
         {
             offset = e.GetPosition(this);
         }
 
-        private void Window_MouseMove(object sender, MouseEventArgs e)
+        private void Titlebar_MouseMove(object sender, MouseEventArgs e)
         {
             if (Mouse.LeftButton == MouseButtonState.Pressed && offset != e.GetPosition(this))
             {
@@ -74,7 +74,7 @@ namespace SastCsharpClientTest
             }
         }
 
-        private void Window_MouseUp(object sender, MouseButtonEventArgs e)
+        private void Titlebar_MouseUp(object sender, MouseButtonEventArgs e)
         {
             if (isDragging)
             {
