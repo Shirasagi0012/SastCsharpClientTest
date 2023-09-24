@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SastCsharpClientTest.Models;
+using SastCsharpClientTest.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,45 +16,33 @@ namespace SastCsharpClientTest.Views
     /// </summary>
     public partial class FriendPage : Page
     {
+        FriendPageViewModel vm = new FriendPageViewModel();
         public FriendPage()
         {
             InitializeComponent();
-            SetComboBox();
-        }
-
-        private List<Friend> friends = null!;
-
-        private void SetComboBox()
-        {
-            string jsonData = File.ReadAllText("src//data.json");
-            friends = JsonConvert.DeserializeObject<Friend[]>(jsonData)!.ToList();
-            FriendOption.ItemsSource = friends.Select(friend => friend.Name);
+            this.vm = new FriendPageViewModel();
+            vm.ReadFromJSON();
         }
 
         private void ChooseFriend(object sender, EventArgs e)
         {
-            var comboBox = (sender as ComboBox)!;
-            if (comboBox.SelectedItem is null)
-                return;
-            var friend = friends.First(f => f.Name == comboBox.SelectedItem.ToString());
-            NameBox.Text = friend.Name;
-            DescriptionBox.Text = friend.Description;
-            ImageBox.Source = new BitmapImage(
-                new Uri(System.IO.Path.Combine(Environment.CurrentDirectory, friend.ImgUrl))
-            );
-            EditButton.Visibility = Visibility.Visible;
-            SetTextBoxEnabled(false);
+            //var comboBox = (sender as ComboBox)!;
+            //if (comboBox.SelectedItem is null)
+            //    return;
+            //var friend = friends.First(f => f.Name == comboBox.SelectedItem.ToString());
+            //NameBox.Text = friend.Name;
+            //DescriptionBox.Text = friend.Description;
+            //ImageBox.Source = new BitmapImage(
+            //    new Uri(System.IO.Path.Combine(Environment.CurrentDirectory, friend.ImgUrl))
+            //);
+            //EditButton.Visibility = Visibility.Visible;
+            //SetTextBoxEnabled(false);
         }
 
-        private void SetTextBoxEnabled(bool isEnabled)
-        {
-            NameBox.IsEnabled = isEnabled;
-            DescriptionBox.IsEnabled = isEnabled;
-        }
-
-        private void EditFriend(object sender, RoutedEventArgs e)
-        {
-            SetTextBoxEnabled(true);
-        }
+        //private void FriendOption_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if(EditButton is not null)
+        //    EditButton.Visibility = Visibility.Visible;
+        //}
     }
 }

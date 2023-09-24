@@ -1,20 +1,20 @@
 [
-  {
-    "Id": 1,
-    "Name": "Serval",
-    "Description": "A kind of cat",
-    "ImgUrl": "src/Serval.png"
-  },
-  {
-    "Id": 2,
-    "Name": "Fennec",
-    "Description": "A kind of fox",
-    "ImgUrl": "src/Fennec.png"
-  },
-  {
-    "Id": 3,
-    "Name": "Black-tailed Gull",
-    "Description": "A kind of bird",
-    "ImgUrl": "src/Umineko.png"
-  }
+	{
+		"Id": 1,
+		"Name": "Serval",
+		"Description": "A kind of cat",
+		"ImgUrl": "src/Serval.png"
+	},
+	{
+		"Id": 2,
+		"Name": "Fennec",
+		"Description": "A kind of fox",
+		"ImgUrl": "src/Fennec.png"
+	},
+	{
+		"Id": 3,
+		"Name": "Black-tailed Gull",
+		"Description": "A kind of bird",
+		"ImgUrl": "src/Umineko.png"
+	}
 ]

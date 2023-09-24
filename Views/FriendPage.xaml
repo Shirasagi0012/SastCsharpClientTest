@@ -1,14 +1,30 @@
 ﻿<Page
-    x:Class="SastCsharpClientTest.Views.FriendPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:SastCsharpClientTest.ViewModels"
+    xmlns:SastCsharpClientTest="clr-namespace:SastCsharpClientTest"
+    x:Class="SastCsharpClientTest.Views.FriendPage"
     Title="FriendPage"
+    d:DataContext="{d:DesignInstance Type={x:Type local:FriendPageViewModel}}"
     d:DesignHeight="450"
     d:DesignWidth="640"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    >
 
+    <Page.Resources>
+
+        <SastCsharpClientTest:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <SastCsharpClientTest:StringToImageSourceConverter x:Key="StringToImageSourceConverter"/>
+        <SastCsharpClientTest:EditOrSaveConverter x:Key="EditOrSaveConverter"/>
+
+    </Page.Resources>
+
+    <Page.DataContext>
+        <local:FriendPageViewModel/>
+    </Page.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="360" />
@@ -31,42 +47,40 @@
                 x:Name="FriendOption"
                 Grid.Row="0"
                 Grid.Column="0"
-                DropDownClosed="ChooseFriend"
-                Style="{StaticResource GeneralComboBox}" />
+                ItemsSource="{Binding FriendsList, Mode=OneWay}"
+                SelectedItem="{Binding FriendsItem, Mode=TwoWay}"
+                DisplayMemberPath="Name"
+                SelectedValuePath="Id"
+                Style="{StaticResource GeneralComboBox}" >
+            </ComboBox>
             <TextBlock
                 Grid.Row="2"
                 Grid.Column="0"
-                Style="{StaticResource PropertyTextBlock}">
-                Friend Name :
-            </TextBlock>
+                Style="{StaticResource PropertyTextBlock}"><Run Text="Friend Name :"/></TextBlock>
             <TextBlock
                 Grid.Row="3"
                 Grid.Column="0"
-                Style="{StaticResource PropertyTextBlock}">
-                Friend Description :
-            </TextBlock>
+                Style="{StaticResource PropertyTextBlock}"><Run Text="Friend Description :"/></TextBlock>
             <TextBox
                 x:Name="NameBox"
                 Grid.Row="2"
                 Grid.Column="1"
-                IsEnabled="False"
-                Style="{StaticResource PropertyTextBox}" />
+                IsEnabled="{Binding isTextBoxEnabled}"
+                Style="{StaticResource PropertyTextBox}" Text="{Binding SelectedItem.Name, ElementName=FriendOption, Mode=TwoWay}" />
             <TextBox
                 x:Name="DescriptionBox"
                 Grid.Row="3"
                 Grid.Column="1"
                 Width="160"
-                IsEnabled="False"
-                Style="{StaticResource PropertyTextBox}" />
+                IsEnabled="{Binding isTextBoxEnabled}"
+                Style="{StaticResource PropertyTextBox}" Text="{Binding SelectedItem.Description, ElementName=FriendOption, Mode=TwoWay}"/>
             <Button
                 x:Name="EditButton"
                 Grid.Row="5"
                 Grid.Column="0"
-                Click="EditFriend"
+                Command="{Binding EditAction}"
                 Style="{StaticResource GeneralButton}"
-                Visibility="Collapsed">
-                Edit
-            </Button>
+                Content="{Binding isTextBoxEnabled, Converter={StaticResource EditOrSaveConverter}}"/>
         </Grid>
 
         <Image
@@ -74,6 +88,6 @@
             Grid.Column="1"
             Width="240"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center" />
+            VerticalAlignment="Center" Source="{Binding SelectedItem.ImgUrl, Converter={StaticResource StringToImageSourceConverter}, ElementName=FriendOption}"/>
     </Grid>
 </Page>
