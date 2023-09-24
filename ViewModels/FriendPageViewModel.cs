@@ -3,6 +3,7 @@ using SastCsharpClientTest.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -16,6 +17,7 @@ namespace SastCsharpClientTest.ViewModels
     {
         public List<Friend> FriendsList { get; set; }
         public Friend FriendsItem { get; set; }
+        public int FriendsItemIndex { get; set; }
         public bool isTextBoxEnabled { get; set; }
 
         public FriendPageViewModel() 
@@ -31,6 +33,13 @@ namespace SastCsharpClientTest.ViewModels
             string jsonData = File.ReadAllText("src//data.json");
             FriendsList = JsonConvert.DeserializeObject<Friend[]>(jsonData)!.ToList();
             RaisePropertyChanged(nameof(FriendsList));
+        }
+
+        public void WriteToJSON()
+        {
+            var output = JsonConvert.SerializeObject(FriendsList);
+            Debug.WriteLine(output);
+            File.WriteAllText("src//data.json", output);
         }
 
         public bool CanEditButtonExecute()
@@ -67,10 +76,13 @@ namespace SastCsharpClientTest.ViewModels
         void SaveTextBox()
         {
             isTextBoxEnabled = false;
+            FriendsList[FriendsItemIndex] = FriendsItem;
+            WriteToJSON();
+            ReadFromJSON();
             RaisePropertyChanged($"{nameof(isTextBoxEnabled)}");
             RaisePropertyChanged($"{nameof(EditAction)}");
-
-
+            RaisePropertyChanged($"{nameof(FriendsItem)}");
+            RaisePropertyChanged($"{nameof(FriendsList)}");
         }
 
 

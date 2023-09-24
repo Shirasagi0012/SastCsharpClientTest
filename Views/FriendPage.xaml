@@ -49,6 +49,7 @@
                 Grid.Column="0"
                 ItemsSource="{Binding FriendsList, Mode=OneWay}"
                 SelectedItem="{Binding FriendsItem, Mode=TwoWay}"
+                SelectedIndex="{Binding FriendsItemIndex, Mode=TwoWay}"
                 DisplayMemberPath="Name"
                 SelectedValuePath="Id"
                 Style="{StaticResource GeneralComboBox}" >
