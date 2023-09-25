@@ -16,5 +16,11 @@
 		"Name": "Black-tailed Gull",
 		"Description": "A kind of bird",
 		"ImgUrl": "src/Umineko.png"
+	},
+	{
+		"Id": 4,
+		"Name": "Jagdender",
+		"Description": "应该是Jagdender吧……？",
+		"ImgUrl": "src/Jagdender.png"
 	}
 ]
