@@ -20,7 +20,7 @@ namespace SastCsharpClientTest.ViewModels
         public int FriendsItemIndex { get; set; }
         public bool isTextBoxEnabled { get; set; }
 
-        public FriendPageViewModel() 
+        public FriendPageViewModel()
         {
             FriendsList = new();
             ReadFromJSON();
@@ -36,10 +36,10 @@ namespace SastCsharpClientTest.ViewModels
             }
             set
             {
-                FriendsList[FriendsItemIndex] = new(FriendsList[FriendsItemIndex].Id, value,FriendsList[FriendsItemIndex].Description, FriendsList[FriendsItemIndex].ImgUrl);
+                var a = FriendsList[FriendsItemIndex];
+                FriendsList[FriendsItemIndex] = new(a.Id, value, a.Description, a.ImgUrl);
             }
         }
-
 
         public string SelectedItemDescription
         {
@@ -49,10 +49,10 @@ namespace SastCsharpClientTest.ViewModels
             }
             set
             {
-                FriendsList[FriendsItemIndex] = new(FriendsList[FriendsItemIndex].Id, FriendsList[FriendsItemIndex].Name, value, FriendsList[FriendsItemIndex].ImgUrl);
+                var a = FriendsList[FriendsItemIndex];
+                FriendsList[FriendsItemIndex] = new(a.Id, a.Name, value, a.ImgUrl);
             }
         }
-
 
         public void ReadFromJSON()
         {
@@ -80,7 +80,7 @@ namespace SastCsharpClientTest.ViewModels
             var _currentIndex = FriendsItemIndex;
             WriteToJSON();
             ReadFromJSON();
-            FriendsItemIndex =_currentIndex;
+            FriendsItemIndex = _currentIndex;
             RaisePropertyChanged("");
         }
 
