@@ -51,8 +51,12 @@
                 SelectedItem="{Binding FriendsItem, Mode=TwoWay}"
                 SelectedIndex="{Binding FriendsItemIndex, Mode=TwoWay}"
                 DisplayMemberPath="Name"
-                SelectedValuePath="Id"
-                Style="{StaticResource GeneralComboBox}" >
+                Style="{StaticResource GeneralComboBox}" IsSynchronizedWithCurrentItem="True">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding ComboBoxSelectionChanged}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </ComboBox>
             <TextBlock
                 Grid.Row="2"
@@ -67,14 +71,14 @@
                 Grid.Row="2"
                 Grid.Column="1"
                 IsEnabled="{Binding isTextBoxEnabled}"
-                Style="{StaticResource PropertyTextBox}" Text="{Binding SelectedItem.Name, ElementName=FriendOption, Mode=TwoWay}" />
+                Style="{StaticResource PropertyTextBox}" Text="{Binding SelectedItemName, Mode=TwoWay}" />
             <TextBox
                 x:Name="DescriptionBox"
                 Grid.Row="3"
                 Grid.Column="1"
                 Width="160"
                 IsEnabled="{Binding isTextBoxEnabled}"
-                Style="{StaticResource PropertyTextBox}" Text="{Binding SelectedItem.Description, ElementName=FriendOption, Mode=TwoWay}"/>
+                Style="{StaticResource PropertyTextBox}" Text="{Binding SelectedItemDescription, Mode=TwoWay}"/>
             <Button
                 x:Name="EditButton"
                 Grid.Row="5"

@@ -28,6 +28,32 @@ namespace SastCsharpClientTest.ViewModels
             isTextBoxEnabled = false;
         }
 
+        public string SelectedItemName
+        {
+            get
+            {
+                return FriendsList[FriendsItemIndex].Name;
+            }
+            set
+            {
+                FriendsList[FriendsItemIndex] = new(FriendsList[FriendsItemIndex].Id, value,FriendsList[FriendsItemIndex].Description, FriendsList[FriendsItemIndex].ImgUrl);
+            }
+        }
+
+
+        public string SelectedItemDescription
+        {
+            get
+            {
+                return FriendsList[FriendsItemIndex].Description;
+            }
+            set
+            {
+                FriendsList[FriendsItemIndex] = new(FriendsList[FriendsItemIndex].Id, FriendsList[FriendsItemIndex].Name, value, FriendsList[FriendsItemIndex].ImgUrl);
+            }
+        }
+
+
         public void ReadFromJSON()
         {
             string jsonData = File.ReadAllText("src//data.json");
@@ -42,14 +68,20 @@ namespace SastCsharpClientTest.ViewModels
             File.WriteAllText("src//data.json", output);
         }
 
-        public bool CanEditButtonExecute()
+        void EditTextBox()
         {
-            return !isTextBoxEnabled;
+            isTextBoxEnabled = true;
+            RaisePropertyChanged("");
         }
 
-        public bool CanSaveButtonExecute()
+        void SaveTextBox()
         {
-            return isTextBoxEnabled;
+            isTextBoxEnabled = false;
+            var _currentIndex = FriendsItemIndex;
+            WriteToJSON();
+            ReadFromJSON();
+            FriendsItemIndex =_currentIndex;
+            RaisePropertyChanged("");
         }
 
         public ICommand EditAction
@@ -59,32 +91,25 @@ namespace SastCsharpClientTest.ViewModels
                 switch (isTextBoxEnabled)
                 {
                     case true:
-                        return new RelayCommand(SaveTextBox, CanSaveButtonExecute);
+                        return new RelayCommand(SaveTextBox, () => isTextBoxEnabled);
                     case false:
-                        return new RelayCommand(EditTextBox, CanEditButtonExecute);
+                        return new RelayCommand(EditTextBox, () => !isTextBoxEnabled);
                 };
             }
         }
 
-        void EditTextBox()
+        void OnComboBoxSelectionChanged()
         {
-            isTextBoxEnabled = true;
-            RaisePropertyChanged($"{nameof(isTextBoxEnabled)}");
-            RaisePropertyChanged($"{nameof(EditAction)}");
+            RaisePropertyChanged("");
         }
 
-        void SaveTextBox()
+        public ICommand ComboBoxSelectionChanged
         {
-            isTextBoxEnabled = false;
-            FriendsList[FriendsItemIndex] = FriendsItem;
-            WriteToJSON();
-            ReadFromJSON();
-            RaisePropertyChanged($"{nameof(isTextBoxEnabled)}");
-            RaisePropertyChanged($"{nameof(EditAction)}");
-            RaisePropertyChanged($"{nameof(FriendsItem)}");
-            RaisePropertyChanged($"{nameof(FriendsList)}");
+            get
+            {
+                return new RelayCommand(OnComboBoxSelectionChanged, () => true);
+            }
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
